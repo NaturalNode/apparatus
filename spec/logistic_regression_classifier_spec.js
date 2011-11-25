@@ -25,12 +25,12 @@ var LogisticRegressionClassifier = new require('../lib/apparatus/classifier/logi
 describe('logistic regression', function() {    
     it('should classify with examples added in groups', function() {
         var logistic = new LogisticRegressionClassifier();
-        logistic.addDocument([1,1,1,0,0,0], 'one');
-        logistic.addDocument([1,0,1,0,0,0], 'one');
-        logistic.addDocument([1,1,1,0,0,0], 'one');
-        logistic.addDocument([0,0,0,1,1,1], 'two');
-        logistic.addDocument([0,0,0,1,0,1], 'two');
-        logistic.addDocument([0,0,0,1,1,0], 'two');
+        logistic.addExample([1,1,1,0,0,0], 'one');
+        logistic.addExample([1,0,1,0,0,0], 'one');
+        logistic.addExample([1,1,1,0,0,0], 'one');
+        logistic.addExample([0,0,0,1,1,1], 'two');
+        logistic.addExample([0,0,0,1,0,1], 'two');
+        logistic.addExample([0,0,0,1,1,0], 'two');
 
         logistic.train();
         
