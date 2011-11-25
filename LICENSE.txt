@@ -1,4 +1,3 @@
-/*
 Copyright (c) 2011, Chris Umbel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,24 +17,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-*/
-
-var KMeans = require('.././lib/apparatus/clusterer/kmeans');
-
-describe('kmeans', function() {
-    it('should perform binary clustering', function() {
-	var X = $M([[1, 1], [2, 1], [4, 3], [5, 4]]);
-	var k = 2;
-	var kmeans = new KMeans(X, k);
-
-	expect(kmeans.cluster(2).eql($V([1, 1, 2, 2]))).toBeTruthy();
-    });
-
-    it('should cluster', function() {
-	var X = $M([[1, 1], [2, 1], [4, 3], [5, 4], [11, 12], [11, 13]]);
-	var k = 3;
-	var kmeans = new KMeans(X, k);
-
-	expect(kmeans.cluster(3).eql($V([1, 1, 2, 2, 3, 3]))).toBeTruthy();
-    });
-});
