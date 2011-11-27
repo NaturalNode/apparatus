@@ -38,7 +38,6 @@ describe('bayes', function() {
         expect(bayes.classify([0,0,0,0,1,1])).toBe('two');
     });
 
-
     it('should classify', function() {
         var bayes = new BayesClassifier();
         bayes.addExample([1,1,1,0,0,0,0,0,0], 'one');
