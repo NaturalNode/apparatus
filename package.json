@@ -1,7 +1,7 @@
 {
   "name": "apparatus",
-  "description": "machine learning routines",
-  "version": "0.0.1",
+  "description": "various machine learning routines for node",
+  "version": "0.0.2",
   "engines": {
     "node": ">=0.2.6"
   },
@@ -9,7 +9,7 @@
     "sylvester": ">= 0.0.8"
   },
   "author": "Chris Umbel <chris@chrisumbel.com>",
-  "keywords": ["machine", "learning", "ml"],
+  "keywords": ["machine", "learning", "ml", "classifier", "clustering", "bayes", "k-means", "logistic", "regression"],
   "main": "./lib/apparatus/index.js",
   "maintainers": [{
     "name": "Chris Umbel",
