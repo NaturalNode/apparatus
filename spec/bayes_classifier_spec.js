@@ -57,4 +57,27 @@ describe('bayes', function() {
         expect(bayes.classify([1,0,0,0,1,0,0,1,1])).toBe('three');
 
     });
+
+    it('should classify', function() {
+        var bayes = new BayesClassifier();
+        bayes.addExample([1,1,1,0,0,0,0,0,0], 'one');
+        bayes.addExample([1,0,1,0,0,0,0,0,0], 'one');
+        bayes.addExample([1,1,1,0,0,0,0,0,0], 'one');
+        bayes.addExample([0,0,0,1,1,1,0,0,0], 'two');
+        bayes.addExample([0,0,0,1,0,1,0,0,0], 'two');
+        bayes.addExample([0,0,0,1,1,0,0,0,0], 'two');
+        bayes.addExample([0,0,0,0,0,0,1,1,1], 'three');
+        bayes.addExample([0,0,0,0,0,0,1,0,1], 'three');
+        bayes.addExample([0,0,0,0,0,0,1,1,0], 'three');
+
+        bayes.train();
+
+	var obj = JSON.stringify(bayes);
+	var newBayes = BayesClassifier.restore(JSON.parse(obj));
+        
+        expect(newBayes.classify([1,1,0,0,0,0,1,0,0])).toBe('one');
+        expect(newBayes.classify([0,0,1,1,1,0,0,0,1])).toBe('two');
+        expect(newBayes.classify([1,0,0,0,1,0,0,1,1])).toBe('three');
+
+    });
 });

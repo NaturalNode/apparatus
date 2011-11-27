@@ -57,4 +57,26 @@ describe('logistic regression', function() {
         expect(logistic.classify([1,0,0,0,1,0,0,1,1])).toBe('three');
 
     });
+
+    it('should classify', function() {
+        var logistic = new LogisticRegressionClassifier();
+        logistic.addExample([1,1,1,0,0,0,0,0,0], 'one');
+        logistic.addExample([1,0,1,0,0,0,0,0,0], 'one');
+        logistic.addExample([1,1,1,0,0,0,0,0,0], 'one');
+        logistic.addExample([0,0,0,1,1,1,0,0,0], 'two');
+        logistic.addExample([0,0,0,1,0,1,0,0,0], 'two');
+        logistic.addExample([0,0,0,1,1,0,0,0,0], 'two');
+        logistic.addExample([0,0,0,0,0,0,1,1,1], 'three');
+        logistic.addExample([0,0,0,0,0,0,1,0,1], 'three');
+        logistic.addExample([0,0,0,0,0,0,1,1,0], 'three');
+
+        logistic.train();
+
+        var obj = JSON.stringify(logistic);
+        var newLogistic = LogisticRegressionClassifier.restore(JSON.parse(obj));
+
+        expect(newLogistic.classify([1,1,0,0,0,0,1,0,0])).toBe('one');
+        expect(newLogistic.classify([0,0,1,1,1,0,0,0,1])).toBe('two');
+        expect(newLogistic.classify([1,0,0,0,1,0,0,1,1])).toBe('three');
+    });
 });
