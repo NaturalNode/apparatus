@@ -1,0 +1,19 @@
+{
+  "name": "apparatus",
+  "description": "machine learning routines",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=0.2.6"
+  },
+  "dependencies": {
+    "sylvester": ">= 0.0.8"
+  },
+  "author": "Chris Umbel <chris@chrisumbel.com>",
+  "keywords": ["machine", "learning", "ml"],
+  "main": "./lib/apparatus/index.js",
+  "maintainers": [{
+    "name": "Chris Umbel",
+    "email": "chris@chrisumbel.com",
+    "web": "http://www.chrisumbel.com"
+  }]
+}
