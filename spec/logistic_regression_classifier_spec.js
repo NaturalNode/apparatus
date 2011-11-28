@@ -58,6 +58,25 @@ describe('logistic regression', function() {
 
     });
 
+    it('should allow retraining', function() {
+        var logistic = new LogisticRegressionClassifier();
+        logistic.addExample([1,1,1,0,0,0,0,0,0], 'one');
+        logistic.addExample([1,0,1,0,0,0,0,0,0], 'one');
+        logistic.addExample([1,1,1,0,0,0,0,0,0], 'one');
+        logistic.addExample([0,0,0,1,1,1,0,0,0], 'two');
+        logistic.addExample([0,0,0,1,0,1,0,0,0], 'two');
+        logistic.addExample([0,0,0,1,1,0,0,0,0], 'two');
+        logistic.train();
+        logistic.addExample([0,0,0,0,0,0,1,1,1], 'three');
+        logistic.addExample([0,0,0,0,0,0,1,0,1], 'three');
+        logistic.addExample([0,0,0,0,0,0,1,1,0], 'three');
+	logistic.train();
+
+        expect(logistic.classify([1,1,0,0,0,0,1,0,0])).toBe('one');
+        expect(logistic.classify([0,0,1,1,1,0,0,0,1])).toBe('two');
+        expect(logistic.classify([1,0,0,0,1,0,0,1,1])).toBe('three');
+    });
+
     it('should classify', function() {
         var logistic = new LogisticRegressionClassifier();
         logistic.addExample([1,1,1,0,0,0,0,0,0], 'one');
