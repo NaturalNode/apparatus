@@ -58,7 +58,7 @@ describe('bayes', function() {
 
     });
 
-    it('should classify', function() {
+    it('should classify with deserialized classifier', function() {
         var bayes = new BayesClassifier();
         bayes.addExample([1,1,1,0,0,0,0,0,0], 'one');
         bayes.addExample([1,0,1,0,0,0,0,0,0], 'one');
@@ -72,12 +72,45 @@ describe('bayes', function() {
 
         bayes.train();
 
-	var obj = JSON.stringify(bayes);
-	var newBayes = BayesClassifier.restore(JSON.parse(obj));
+    	var obj = JSON.stringify(bayes);
+    	var newBayes = BayesClassifier.restore(JSON.parse(obj));
         
         expect(newBayes.classify([1,1,0,0,0,0,1,0,0])).toBe('one');
         expect(newBayes.classify([0,0,1,1,1,0,0,0,1])).toBe('two');
         expect(newBayes.classify([1,0,0,0,1,0,0,1,1])).toBe('three');
+    });
 
+    it('should classify with smoothing', function() {
+        var bayes = new BayesClassifier(0.3);
+        bayes.addExample([1,1,1,0,0,0,0,0,0], 'one');
+        bayes.addExample([0,0,1,0,0,0,0,0,0], 'one');
+        bayes.addExample([0,0,1,0,0,0,0,0,0], 'one');
+        bayes.addExample([0,0,0,1,1,1,0,0,0], 'two');
+        bayes.addExample([0,0,0,0,0,1,0,0,0], 'two');
+        bayes.addExample([0,0,0,0,1,0,0,0,0], 'two');
+        bayes.addExample([0,0,0,0,0,0,1,1,1], 'three');
+        bayes.addExample([0,0,0,0,0,0,0,0,1], 'three');
+        bayes.addExample([0,0,0,0,0,0,0,1,0], 'three');
+
+        bayes.train();
+
+        expect(bayes.classify([1,0,0,0,0,0,1,0,0])).toBe('one');
+        expect(bayes.classify([0,0,1,1,1,0,0,0,1])).toBe('two');
+        expect(bayes.classify([1,0,0,0,1,0,0,1,1])).toBe('three');
+    });  
+
+    it('should classify with sparse observations', function() {
+        var bayes = new BayesClassifier();
+        bayes.addExample({'a': 1, 'b': 'a', 'c': false}, 'one');
+        bayes.addExample({'a': 1, 'b': 'b', 'c': false}, 'one');
+        bayes.addExample({'a': 4, 'b': 'c', 'c': true}, 'one');
+        bayes.addExample({'a': 2, 'b': 'c', 'c': false}, 'two');
+        bayes.addExample({'a': 2, 'b': 'd', 'c': false}, 'two');
+        bayes.addExample({'a': 2, 'b': 'e'}, 'two');
+
+        bayes.train();
+
+        expect(bayes.classify({'a': 1, 'f': 'e', 'c': true})).toBe('one');
+        expect(bayes.classify({'a': 2, 'f': 'r'})).toBe('two');        
     });
 });

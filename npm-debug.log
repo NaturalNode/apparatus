@@ -1,0 +1,108 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'publish', '.' ]
+2 info using npm@1.1.32
+3 info using node@v0.8.0
+4 verbose config file /Users/kilnaar/.npmrc
+5 verbose config file /usr/local/etc/npmrc
+6 verbose config file /usr/local/lib/node_modules/npm/npmrc
+7 verbose publish [ '.' ]
+8 verbose read json /Users/kilnaar/src/apparatus/package.json
+9 verbose cache add [ '.', null ]
+10 silly cache add name=undefined spec="." args=[".",null]
+11 verbose parsed url { pathname: '.', path: '.', href: '.' }
+12 verbose read json package.json
+13 verbose tar pack [ '/var/folders/bz/th7kn6_904nfcq17y9056qlw0000gn/T/npm-1354474450198/1354474450198-0.5049577404279262/tmp.tgz',
+13 verbose tar pack   '.' ]
+14 verbose tarball /var/folders/bz/th7kn6_904nfcq17y9056qlw0000gn/T/npm-1354474450198/1354474450198-0.5049577404279262/tmp.tgz
+15 verbose folder .
+16 info prepublish apparatus@0.0.6
+17 verbose tar unpack /var/folders/bz/th7kn6_904nfcq17y9056qlw0000gn/T/npm-1354474450198/1354474450198-0.5049577404279262/tmp.tgz
+18 silly gunzTarPerm modes [ '755', '644' ]
+19 silly gunzTarPerm extractEntry package.json
+20 silly gunzTarPerm extractEntry .npmignore
+21 silly gunzTarPerm extractEntry README.md
+22 silly gunzTarPerm extractEntry index.js
+23 silly gunzTarPerm extractEntry lib/apparatus/index.js
+24 silly gunzTarPerm extractEntry lib/apparatus/classifier/bayes_classifier.js
+25 silly gunzTarPerm extractEntry lib/apparatus/classifier/classifier.js
+26 silly gunzTarPerm extractEntry lib/apparatus/classifier/logistic_regression_classifier.js
+27 silly gunzTarPerm extractEntry lib/apparatus/clusterer/kmeans.js
+28 silly gunzTarPerm extractEntry LICENSE.txt
+29 silly gunzTarPerm extractEntry spec/bayes_classifier_spec.js
+30 silly gunzTarPerm extractEntry spec/kmeans_spec.js
+31 silly gunzTarPerm extractEntry spec/logistic_regression_classifier_spec.js
+32 verbose read json /var/folders/bz/th7kn6_904nfcq17y9056qlw0000gn/T/npm-1354474450198/1354474450198-0.5049577404279262/package/package.json
+33 verbose from cache /var/folders/bz/th7kn6_904nfcq17y9056qlw0000gn/T/npm-1354474450198/1354474450198-0.5049577404279262/package/package.json
+34 verbose tar pack [ '/Users/kilnaar/.npm/apparatus/0.0.6/package.tgz',
+34 verbose tar pack   '/var/folders/bz/th7kn6_904nfcq17y9056qlw0000gn/T/npm-1354474450198/1354474450198-0.5049577404279262/package' ]
+35 verbose tarball /Users/kilnaar/.npm/apparatus/0.0.6/package.tgz
+36 verbose folder /var/folders/bz/th7kn6_904nfcq17y9056qlw0000gn/T/npm-1354474450198/1354474450198-0.5049577404279262/package
+37 verbose tar unpack /Users/kilnaar/.npm/apparatus/0.0.6/package.tgz
+38 silly gunzTarPerm modes [ '755', '644' ]
+39 silly gunzTarPerm extractEntry package.json
+40 silly gunzTarPerm extractEntry .npmignore
+41 silly gunzTarPerm extractEntry README.md
+42 silly gunzTarPerm extractEntry index.js
+43 silly gunzTarPerm extractEntry lib/apparatus/index.js
+44 silly gunzTarPerm extractEntry lib/apparatus/classifier/bayes_classifier.js
+45 silly gunzTarPerm extractEntry lib/apparatus/classifier/classifier.js
+46 silly gunzTarPerm extractEntry lib/apparatus/classifier/logistic_regression_classifier.js
+47 silly gunzTarPerm extractEntry lib/apparatus/clusterer/kmeans.js
+48 silly gunzTarPerm extractEntry LICENSE.txt
+49 silly gunzTarPerm extractEntry spec/bayes_classifier_spec.js
+50 silly gunzTarPerm extractEntry spec/kmeans_spec.js
+51 silly gunzTarPerm extractEntry spec/logistic_regression_classifier_spec.js
+52 verbose read json /Users/kilnaar/.npm/apparatus/0.0.6/package/package.json
+53 silly shasum updated bytes 5034
+54 info shasum 17cdb02e37d53ce1856e74f85a7000784c3a15ef
+54 info shasum /Users/kilnaar/.npm/apparatus/0.0.6/package.tgz
+55 verbose from cache /Users/kilnaar/.npm/apparatus/0.0.6/package/package.json
+56 verbose chmod /Users/kilnaar/.npm/apparatus/0.0.6/package.tgz 644
+57 verbose chown /Users/kilnaar/.npm/apparatus/0.0.6/package.tgz [ 501, 20 ]
+58 silly publish { name: 'apparatus',
+58 silly publish   description: 'various machine learning routines for node',
+58 silly publish   version: '0.0.6',
+58 silly publish   engines: { node: '>=0.2.6' },
+58 silly publish   dependencies: { sylvester: '>= 0.0.8' },
+58 silly publish   devDependencies: { 'jasmine-node': '>=1.0.26' },
+58 silly publish   author: { name: 'Chris Umbel', email: 'chris@chrisumbel.com' },
+58 silly publish   keywords:
+58 silly publish    [ 'machine',
+58 silly publish      'learning',
+58 silly publish      'ml',
+58 silly publish      'classifier',
+58 silly publish      'clustering',
+58 silly publish      'bayes',
+58 silly publish      'k-means',
+58 silly publish      'logistic',
+58 silly publish      'regression' ],
+58 silly publish   main: './lib/apparatus/index.js',
+58 silly publish   maintainers:
+58 silly publish    [ { name: 'Chris Umbel',
+58 silly publish        email: 'chris@chrisumbel.com',
+58 silly publish        url: 'http://www.chrisumbel.com' } ],
+58 silly publish   readme: '\napparatus\n=========\n\nA collection of low-level machine learning algorithms for node.js.\n\nThis project is quite new and documentation will be on the way shortly. \nIn the meantime you can check out the spec folder for examples of how\nto use the algorithms. \n\nNote that within "apparatus" the interface to the algorithms in \nprimarily arrays of numbers and vectors. If you\'re  looking for feature\nextraction from text or natural language check out the "natural" \nhttps://github.com/NaturalNode/natural node package. "natural" uses\nmany of these algorithms but adds a layer of natural language/text \nfeature extraction.\n',
+58 silly publish   _id: 'apparatus@0.0.6',
+58 silly publish   dist: { shasum: '17cdb02e37d53ce1856e74f85a7000784c3a15ef' } }
+59 verbose url raw apparatus
+60 verbose url resolving [ 'https://registry.npmjs.org/', './apparatus' ]
+61 verbose url resolved https://registry.npmjs.org/apparatus
+62 http PUT https://registry.npmjs.org/apparatus
+63 http 409 https://registry.npmjs.org/apparatus
+64 verbose url raw apparatus
+65 verbose url resolving [ 'https://registry.npmjs.org/', './apparatus' ]
+66 verbose url resolved https://registry.npmjs.org/apparatus
+67 http GET https://registry.npmjs.org/apparatus
+68 http 200 https://registry.npmjs.org/apparatus
+69 error publish fail Cannot publish over existing version.
+69 error publish fail Bump the 'version' field, set the --force flag, or
+69 error publish fail     npm unpublish 'apparatus@0.0.6'
+69 error publish fail and try again
+70 error System Darwin 11.4.2
+71 error command "node" "/usr/local/bin/npm" "publish" "."
+72 error cwd /Users/kilnaar/src/apparatus
+73 error node -v v0.8.0
+74 error npm -v 1.1.32
+75 error code EPUBLISHCONFLICT
+76 error message publish fail
+77 verbose exit [ 1, true ]
