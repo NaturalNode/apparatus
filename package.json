@@ -3,7 +3,7 @@
   "description": "various machine learning routines for node",
   "version": "0.0.8",
   "engines": {
-    "node": "0.10.*"
+    "node": ">=0.2.6"
   },
   "dependencies": {
     "sylvester": ">= 0.0.8"
