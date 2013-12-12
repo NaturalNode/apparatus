@@ -11,6 +11,9 @@
   "devDependencies" : {
     "jasmine-node": ">=1.0.26"
   },
+  "scripts": {
+    "test": "./node_modules/jasmine-node/bin/jasmine-node ."
+  },
   "author": "Chris Umbel <chris@chrisumbel.com>",
   "keywords": ["machine", "learning", "ml", "classifier", "clustering", "bayes", "k-means", "logistic", "regression"],
   "main": "./lib/apparatus/index.js",
