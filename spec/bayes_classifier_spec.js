@@ -22,7 +22,12 @@ THE SOFTWARE.
 
 var BayesClassifier = new require('../lib/apparatus/classifier/bayes_classifier');
 
-describe('bayes', function() {    
+describe('bayes', function() { 
+    it('should throw if not trained', function() {
+        var bayes = new BayesClassifier();
+        expect(function() { bayes.classify([0,0,0,0,1,1]) }).toThrow();
+    });
+
     it('should perform binary classifcation', function() {
         var bayes = new BayesClassifier();
         bayes.addExample([1,1,1,0,0,0], 'one');
