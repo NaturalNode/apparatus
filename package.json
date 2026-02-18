@@ -1,7 +1,7 @@
 {
   "name": "apparatus",
   "description": "various machine learning routines for node",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "repository": {
     "type": "git",
     "url": "https://github.com/NaturalNode/apparatus"
@@ -14,10 +14,10 @@
     "sylvester": ">= 0.0.8"
   },
   "devDependencies": {
-    "jasmine-node": ">=1.0.26"
+    "jasmine": "^5.0.0"
   },
   "scripts": {
-    "test": "./node_modules/jasmine-node/bin/jasmine-node ."
+    "test": "jasmine"
   },
   "author": "Chris Umbel <chris@chrisumbel.com>",
   "keywords": [
