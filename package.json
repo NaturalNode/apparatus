@@ -14,7 +14,7 @@
     "sylvester": ">= 0.0.8"
   },
   "devDependencies": {
-    "jasmine": "^5.0.0"
+    "jasmine": "^6.0.0"
   },
   "scripts": {
     "test": "jasmine"

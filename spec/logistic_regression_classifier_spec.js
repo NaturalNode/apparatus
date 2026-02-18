@@ -38,7 +38,7 @@ describe('logistic regression', function() {
         expect(logistic.classify([0,0,0,0,1,1])).toBe('two');
     });
 
-    it('should classify', function() {
+    it('should classify - part 1', function() {
         var logistic = new LogisticRegressionClassifier();
         logistic.addExample([1,1,1,0,0,0,0,0,0], 'one');
         logistic.addExample([1,0,1,0,0,0,0,0,0], 'one');
@@ -77,7 +77,7 @@ describe('logistic regression', function() {
         expect(logistic.classify([1,0,0,0,1,0,0,1,1])).toBe('three');
     });
 
-    it('should classify', function() {
+    it('should classify part - part 2', function() {
         var logistic = new LogisticRegressionClassifier();
         logistic.addExample([1,1,1,0,0,0,0,0,0], 'one');
         logistic.addExample([1,0,1,0,0,0,0,0,0], 'one');
