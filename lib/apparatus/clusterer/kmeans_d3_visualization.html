@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Means Clustering Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        #container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        #visualization {
+            border: 1px solid #ddd;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        #controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        #slider-container {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        
+        #iteration-slider {
+            width: 100%;
+        }
+        
+        #info {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .legend {
+            margin: 20px auto;
+            text-align: center;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+        
+        #data-input {
+            margin: 20px 0;
+        }
+        
+        #data-textarea {
+            width: 100%;
+            height: 150px;
+            font-family: monospace;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>K-Means Clustering Visualization</h1>
+        
+        <div id="data-input">
+            <h3>Paste K-Means JSON Data:</h3>
+            <textarea id="data-textarea" placeholder='Paste the JSON output from visualizer.exportToJSON() here...'></textarea>
+            <button onclick="loadData()">Load Data</button>
+            <button onclick="loadSampleData()">Load Sample Data</button>
+        </div>
+        
+        <div id="info">No data loaded</div>
+        
+        <svg id="visualization" width="800" height="600"></svg>
+        
+        <div id="controls">
+            <button id="play-btn" onclick="togglePlay()" disabled>Play</button>
+            <button onclick="previousIteration()" disabled id="prev-btn">Previous</button>
+            <button onclick="nextIteration()" disabled id="next-btn">Next</button>
+            <button onclick="resetVisualization()" disabled id="reset-btn">Reset</button>
+        </div>
+        
+        <div id="slider-container">
+            <input type="range" id="iteration-slider" min="0" max="0" value="0" disabled>
+        </div>
+        
+        <div class="legend" id="legend"></div>
+    </div>
+
+    <script>
+        let clusteringData = null;
+        let currentIteration = 0;
+        let isPlaying = false;
+        let playInterval = null;
+        let colors = d3.schemeCategory10;
+        
+        const svg = d3.select("#visualization");
+        const width = 800;
+        const height = 600;
+        const margin = {top: 20, right: 20, bottom: 40, left: 40};
+        const plotWidth = width - margin.left - margin.right;
+        const plotHeight = height - margin.top - margin.bottom;
+        
+        const g = svg.append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+        
+        function loadSampleData() {
+            // Sample data structure
+            const sampleData = {
+                "start": {
+                    "k": 2,
+                    "observations": [[1, 2], [1.5, 1.8], [5, 8], [8, 8], [1, 0.6], [9, 11]],
+                    "initialCentroids": [[4.5, 6.2], [2.1, 3.4]]
+                },
+                "iterations": [
+                    {
+                        "iteration": 1,
+                        "centroids": [[7.67, 9], [1.33, 1.47]],
+                        "groups": [2, 2, 1, 1, 2, 1]
+                    },
+                    {
+                        "iteration": 2,
+                        "centroids": [[7.33, 9], [1.33, 1.47]],
+                        "groups": [2, 2, 1, 1, 2, 1]
+                    }
+                ],
+                "complete": {
+                    "iterations": 2,
+                    "finalCentroids": [[7.33, 9], [1.33, 1.47]],
+                    "groups": [2, 2, 1, 1, 2, 1]
+                }
+            };
+            
+            document.getElementById('data-textarea').value = JSON.stringify(sampleData, null, 2);
+            loadData();
+        }
+        
+        function loadData() {
+            const textarea = document.getElementById('data-textarea');
+            try {
+                clusteringData = JSON.parse(textarea.value);
+                currentIteration = 0;
+                
+                // Enable controls
+                document.getElementById('play-btn').disabled = false;
+                document.getElementById('prev-btn').disabled = false;
+                document.getElementById('next-btn').disabled = false;
+                document.getElementById('reset-btn').disabled = false;
+                document.getElementById('iteration-slider').disabled = false;
+                
+                // Update slider
+                const slider = document.getElementById('iteration-slider');
+                slider.max = clusteringData.iterations.length;
+                slider.value = 0;
+                slider.oninput = function() {
+                    currentIteration = parseInt(this.value);
+                    updateVisualization();
+                };
+                
+                createLegend();
+                updateVisualization();
+            } catch (e) {
+                alert('Invalid JSON data: ' + e.message);
+            }
+        }
+        
+        function createLegend() {
+            const legend = d3.select("#legend");
+            legend.html("");
+            
+            const k = clusteringData.start.k;
+            for (let i = 1; i <= k; i++) {
+                const item = legend.append("div")
+                    .attr("class", "legend-item");
+                
+                item.append("span")
+                    .attr("class", "legend-color")
+                    .style("background-color", colors[i - 1]);
+                
+                item.append("span")
+                    .text(`Cluster ${i}`);
+            }
+            
+            // Add centroid legend
+            const centroidItem = legend.append("div")
+                .attr("class", "legend-item");
+            centroidItem.append("span")
+                .attr("class", "legend-color")
+                .style("background-color", "#000")
+                .style("border", "2px solid #fff");
+            centroidItem.append("span")
+                .text("Centroids");
+        }
+        
+        function updateVisualization() {
+            const observations = clusteringData.start.observations;
+            let centroids, groups;
+            
+            if (currentIteration === 0) {
+                centroids = clusteringData.start.initialCentroids;
+                groups = new Array(observations.length).fill(0);
+                document.getElementById('info').textContent = 'Initial State - Random Centroids';
+            } else {
+                const iterData = clusteringData.iterations[currentIteration - 1];
+                centroids = iterData.centroids;
+                groups = iterData.groups;
+                document.getElementById('info').textContent = `Iteration ${currentIteration} of ${clusteringData.iterations.length}`;
+            }
+            
+            // Update slider
+            document.getElementById('iteration-slider').value = currentIteration;
+            
+            // Calculate scales
+            const allPoints = [...observations, ...centroids];
+            const xExtent = d3.extent(allPoints, d => d[0]);
+            const yExtent = d3.extent(allPoints, d => d[1]);
+            
+            const xScale = d3.scaleLinear()
+                .domain([xExtent[0] - 1, xExtent[1] + 1])
+                .range([0, plotWidth]);
+            
+            const yScale = d3.scaleLinear()
+                .domain([yExtent[0] - 1, yExtent[1] + 1])
+                .range([plotHeight, 0]);
+            
+            // Clear previous visualization
+            g.selectAll("*").remove();
+            
+            // Add axes
+            g.append("g")
+                .attr("transform", `translate(0,${plotHeight})`)
+                .call(d3.axisBottom(xScale));
+            
+            g.append("g")
+                .call(d3.axisLeft(yScale));
+            
+            // Draw observations
+            g.selectAll(".observation")
+                .data(observations)
+                .join("circle")
+                .attr("class", "observation")
+                .attr("cx", d => xScale(d[0]))
+                .attr("cy", d => yScale(d[1]))
+                .attr("r", 6)
+                .attr("fill", (d, i) => groups[i] > 0 ? colors[groups[i] - 1] : "#ccc")
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 2)
+                .attr("opacity", 0.8);
+            
+            // Draw centroids
+            g.selectAll(".centroid")
+                .data(centroids)
+                .join("circle")
+                .attr("class", "centroid")
+                .attr("cx", d => xScale(d[0]))
+                .attr("cy", d => yScale(d[1]))
+                .attr("r", 10)
+                .attr("fill", "#000")
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 3);
+            
+            // Add centroid labels
+            g.selectAll(".centroid-label")
+                .data(centroids)
+                .join("text")
+                .attr("class", "centroid-label")
+                .attr("x", d => xScale(d[0]))
+                .attr("y", d => yScale(d[1]) - 15)
+                .attr("text-anchor", "middle")
+                .attr("font-weight", "bold")
+                .attr("font-size", "12px")
+                .text((d, i) => String.fromCharCode(65 + i));
+        }
+        
+        function nextIteration() {
+            if (currentIteration < clusteringData.iterations.length) {
+                currentIteration++;
+                updateVisualization();
+            }
+        }
+        
+        function previousIteration() {
+            if (currentIteration > 0) {
+                currentIteration--;
+                updateVisualization();
+            }
+        }
+        
+        function resetVisualization() {
+            currentIteration = 0;
+            stopPlay();
+            updateVisualization();
+        }
+        
+        function togglePlay() {
+            if (isPlaying) {
+                stopPlay();
+            } else {
+                startPlay();
+            }
+        }
+        
+        function startPlay() {
+            isPlaying = true;
+            document.getElementById('play-btn').textContent = 'Pause';
+            
+            playInterval = setInterval(() => {
+                if (currentIteration < clusteringData.iterations.length) {
+                    nextIteration();
+                } else {
+                    stopPlay();
+                    resetVisualization();
+                }
+            }, 1000);
+        }
+        
+        function stopPlay() {
+            isPlaying = false;
+            document.getElementById('play-btn').textContent = 'Play';
+            if (playInterval) {
+                clearInterval(playInterval);
+                playInterval = null;
+            }
+        }
+    </script>
+</body>
+</html>
