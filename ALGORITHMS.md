@@ -1,16 +1,3 @@
-
-Apparatus
-=========
-
-Apparatus is a collection of low-level machine learning algorithms for node.js.
-
-Note that within Apparatus the interface to the algorithms in
-primarily arrays of numbers and vectors. If you're  looking for feature
-extraction from text or natural language check out the "natural"
-[https://github.com/NaturalNode/natural](https://github.com/NaturalNode/natural) node package. Natural uses
-many of these algorithms but adds a layer of natural language/text
-feature extraction.
-
 # Apparatus Machine Learning Algorithms Documentation
 
 Documentation of the low-level machine learning algorithms implemented in Apparatus.
@@ -429,4 +416,3 @@ console.log(result.elements); // [1, 1, 2]
 
 **Last Updated:** February 24, 2026  
 **Apparatus Version:** 0.0.11
-
