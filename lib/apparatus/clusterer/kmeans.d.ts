@@ -29,6 +29,8 @@ The implementation uses the modernized KMeans internally.
 For the modern API with additional features, see kmeans-modernized.d.ts
 */
 
+import { VectorLike } from './vector-like'
+
 /**
  * KMeans - Original Apparatus API
  * 
@@ -50,9 +52,9 @@ export class KMeans {
   /**
    * Cluster the observations into k clusters (old Apparatus API)
    * @param k - Number of clusters
-   * @returns Cluster assignments for each observation
+   * @returns Cluster assignments for each observation (Sylvester-compatible vector)
    */
-  cluster (k: number): number[]
+  cluster (k: number): VectorLike
 
   /**
    * Create initial centroids (old Apparatus API)
