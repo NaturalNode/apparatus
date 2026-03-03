@@ -150,7 +150,7 @@ describe('LogisticRegressionClassifier vs Legacy Comparison', () => {
 
     // Test on a training example
     const positiveExample = trainingData[0].text
-    
+
     const modernResult = modernClassifier.getClassifications(positiveExample)
     const legacyResult = legacyClassifier.getClassifications(positiveExample)
 

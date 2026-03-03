@@ -87,7 +87,7 @@ describe('KMeans vs KMeans-Legacy Comparison', () => {
     // Point 0: [1, 2]
     const cluster0 = assignments[0]
     const cluster1 = assignments[1] // [1.5, 1.8]
-    
+
     // These two close points should be in the same cluster
     expect(cluster0).toBe(cluster1)
   })
