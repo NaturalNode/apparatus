@@ -17,7 +17,8 @@
     "jasmine": "^6.0.0"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "benchmark": "node benchmark/kmeans_benchmark.js && node benchmark/logistic_regression_benchmark.js"
   },
   "author": "Chris Umbel <chris@chrisumbel.com>",
   "keywords": [
