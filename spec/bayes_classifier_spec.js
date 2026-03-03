@@ -20,7 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-const BayesClassifier = new require('../lib/apparatus/classifier/bayes_classifier')
+/* global describe, it, expect */
+
+const BayesClassifier = require('../lib/apparatus/classifier/bayes_classifier')
 
 describe('bayes', function () {
   it('should throw if not trained', function () {
@@ -76,8 +78,8 @@ describe('bayes', function () {
 
     bayes.train()
 
-    	const obj = JSON.stringify(bayes)
-    	const newBayes = BayesClassifier.restore(JSON.parse(obj))
+    const obj = JSON.stringify(bayes)
+    const newBayes = BayesClassifier.restore(JSON.parse(obj))
 
     expect(newBayes.classify([1, 1, 0, 0, 0, 0, 1, 0, 0])).toBe('one')
     expect(newBayes.classify([0, 0, 1, 1, 1, 0, 0, 0, 1])).toBe('two')

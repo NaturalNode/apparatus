@@ -20,7 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-const LogisticRegressionClassifier = new require('../lib/apparatus/classifier/logistic_regression_classifier')
+/* global describe, it, expect */
+
+const LogisticRegressionClassifier = require('../lib/apparatus/classifier/logistic-regression-modernized')
 
 describe('logistic regression', function () {
   it('should classify with examples added in groups', function () {

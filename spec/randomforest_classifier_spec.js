@@ -21,10 +21,12 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-const RandomForestClassifier = new require('../lib/apparatus/classifier/randomforest_classifier')
+/* global describe, it, expect */
+
+const RandomForestClassifier = require('../lib/apparatus/classifier/randomforest_classifier')
 
 describe('randomforest', function () {
-	it('should perform binary classifcation', function () {
+  it('should perform binary classifcation', function () {
     const randomforest = new RandomForestClassifier()
 
     randomforest.addExample([-0.4326, 1.1909], 1)
@@ -45,11 +47,11 @@ describe('randomforest', function () {
     // random forest are not deterministic, check on average it works
     let count = 0
     for (let tests = 0; tests < 200; tests++) {
-    randomforest.train()
-      if (randomforest.classify([1.0, 2.0]) == 1) {
-      count++
-    }
+      randomforest.train()
+      if (randomforest.classify([1.0, 2.0]) === 1) {
+        count++
+      }
     }
     expect(count).toBeGreaterThan(50)
-	})
+  })
 })

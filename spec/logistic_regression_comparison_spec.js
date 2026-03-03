@@ -3,6 +3,8 @@ Comparison tests between LogisticRegressionClassifier (modernized) and LogisticR
 Verifies both implementations produce equivalent results
 */
 
+/* global describe, it, expect */
+
 'use strict'
 
 const LogisticRegressionClassifier = require('../lib/apparatus/classifier/logistic_regression_classifier')

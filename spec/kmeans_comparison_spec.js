@@ -3,6 +3,8 @@ Comparison tests between KMeans (modernized) and KMeans-Legacy (Sylvester)
 Verifies both implementations produce equivalent results
 */
 
+/* global describe, it, expect */
+
 'use strict'
 
 const KMeans = require('../lib/apparatus/clusterer/kmeans')
