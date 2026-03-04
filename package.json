@@ -36,6 +36,7 @@
     "regression"
   ],
   "main": "./lib/apparatus/index.js",
+  "types": "./index.d.ts",
   "maintainers": [
     {
       "name": "Chris Umbel",
