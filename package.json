@@ -14,10 +14,14 @@
     "sylvester": ">= 0.0.8"
   },
   "devDependencies": {
-    "jasmine": "^6.0.0"
+    "jasmine": "^6.0.0",
+    "standard": "^17.1.0"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "benchmark": "node benchmark/kmeans_benchmark.js && node benchmark/logistic_regression_benchmark.js",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
   },
   "author": "Chris Umbel <chris@chrisumbel.com>",
   "keywords": [
@@ -32,6 +36,7 @@
     "regression"
   ],
   "main": "./lib/apparatus/index.js",
+  "types": "./index.d.ts",
   "maintainers": [
     {
       "name": "Chris Umbel",

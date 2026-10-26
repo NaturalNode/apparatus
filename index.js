@@ -1,2 +1,1 @@
-
-module.exports = require('./lib/apparatus/');
+module.exports = require('./lib/apparatus/')
