@@ -1,5 +1,5 @@
 > Note: 
-This repository is no longer maintained. The work is continued in the [apparatus-nextgen](https://github.com/NaturalNode/apparatus-nextgen). The reason for this is access to the `apparatus` package on NPM.
+This repository is no longer maintained. The work is continued in the [apparatus-nextgen](https://github.com/NaturalNode/apparatus-nextgen). The reason for this is (lack of) access to the `apparatus` package on NPM.
 
 Apparatus
 =========
